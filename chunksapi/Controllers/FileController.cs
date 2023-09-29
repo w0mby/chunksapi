@@ -2,21 +2,14 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace chunksapi.Controllers
 {
-  public class Response
-  {
-    public bool IsError { get; set; } = false;
-    public string? ErrorMessage { get; set; }
-  }
   [ApiController]
   [Route("file")]
   public class FileController : ControllerBase
   {
-    private readonly ILogger<FileController> _logger;
     public int chunkSize;
     private string uploadFolder;
-    public FileController(IConfiguration configuration, ILogger<FileController> logger)
+    public FileController(IConfiguration configuration)
     {
-      _logger = logger;
       chunkSize = 40000;
       uploadFolder = "c:/tmp";
     }
@@ -88,7 +81,6 @@ namespace chunksapi.Controllers
       finally
       {
         if (concatenateFile != null) concatenateFile.Close();
-
       }
     }
   }
